@@ -20,6 +20,10 @@ jobs:
       - name: Install JupyterLite
         run: pip install jupyterlite
 
+      - name: Install JupyterLite
+        run: pip install jupyterlite jupyterlab
+
+
       - name: Build JupyterLite site
         run: jupyter lite build --contents content/
 
