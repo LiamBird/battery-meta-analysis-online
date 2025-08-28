@@ -2,8 +2,8 @@ name: Deploy JupyterLite site
 
 on:
   push:
-    branches: [ main ]   # or master if that’s your default branch
-  workflow_dispatch:     # allow manual trigger from GitHub Actions tab
+    branches: [ main ]   # change to 'master' if needed
+  workflow_dispatch:
 
 jobs:
   build-deploy:
@@ -18,14 +18,12 @@ jobs:
           python-version: "3.10"
 
       - name: Install JupyterLite
-        run: pip install jupyterlite
-
-      - name: Install JupyterLite
-        run: pip install jupyterlite jupyterlab
-
+        run: |
+          pip install jupyterlite jupyterlab
 
       - name: Build JupyterLite site
-        run: jupyter lite build --contents content/
+        run: |
+          jupyter lite build --contents content/
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
