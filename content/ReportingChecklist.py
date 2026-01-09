@@ -37,6 +37,27 @@ class ReportingChecklist(object):
                                                                                       style={"description_width": "auto"}),
                                            "Electrolyte ratio reported": wg.FloatText(description="Electrolyte/ active ratio", 
                                                                                       style={"description_width": "50pt"}),
+                                           "Electrolyte solvent": wg.Dropdown(options=["", ## default to none to avoid incorrect default assignments  ## Addition made 09/01/2026
+                                                                    "1:1 DOL/ DME v/v",
+                                                                    "1:1 EC/ DEC v/v",
+                                                                    "1:1 EC/ DMC v/v",
+                                                                    "1:1:1 EC/ DEC/ DMC v/v/v",
+                                                                     "Other"]),
+                        "Other solvent text": wg.Text(description="Other solvent"),
+                        "Electrolyte salt": wg.Dropdown(options=["",
+                                                                 "LiPF6",
+                                                                 "LiTFSI",
+                                                                 "Other"]),
+                                           "Other salt text": wg.Text(description="Other salt"),
+                      "Electrolyte salt quantity": wg.FloatText(label="Salt quantity",
+                                                                value=1),
+                      "Electrolyte salt units": wg.RadioButtons(options=["M", "wt%"],
+                                                                value="M"),
+                          "Electrolyte additive": wg.Dropdown(description="Additive",
+                                                              options=["", "VC", "FEC", "LiNO3", "Other"]),
+                                           "Other additive text": wg.Text(description="Other additive"),
+                                           "Electrolyte additive quantity": wg.FloatText(label="Additive quantity"),
+                                           "Electrolyte additive units": wg.RadioButtons(options=["M", "wt%"])    ## End of addition
                       }
         
         report_self.cell_format_vbox = wg.VBox([
@@ -67,7 +88,20 @@ class ReportingChecklist(object):
                                                          report_self.cell_format_widgets["N/P reported"],
                                                          report_self.cell_format_widgets["N/P N/A"]]),
                                                 wg.HBox([report_self.cell_format_widgets["Electrolyte volume reported"],
-                                                         report_self.cell_format_widgets["Electrolyte ratio reported"]])
+                                                         report_self.cell_format_widgets["Electrolyte ratio reported"]]),
+            wg.VBox([wg.Label(value="Electrolyte composition"),  ## Addition made 09/01/2026
+                     wg.HBox([report_self.cell_format_widgets["Electrolyte solvent"], 
+                              report_self.cell_format_widgets["Other solvent text"]]),
+                     wg.HBox([report_self.cell_format_widgets["Electrolyte salt"],
+                              report_self.cell_format_widgets["Other salt text"],
+                              report_self.cell_format_widgets["Electrolyte salt quantity"],
+                              report_self.cell_format_widgets["Electrolyte salt units"]]),
+                     wg.HBox([report_self.cell_format_widgets["Electrolyte additive"],
+                              report_self.cell_format_widgets["Other additive text"],
+                              report_self.cell_format_widgets["Electrolyte additive quantity"],
+                              report_self.cell_format_widgets["Electrolyte additive units"]])
+                   ]) ## Addition ends
+             
         ])
         
 ########## Electrode processing ##########
